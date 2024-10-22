@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WASDで移動するアニメーション</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        #sprite {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            background-image: url('enemy2.png'); /* アップロードした画像を使用 */
+            background-position: 0 0;
+            background-size: 300%; /* スプライトシート全体の大きさを指定 */
+            animation: play 1s steps(9) infinite;
+        }
+
+        @keyframes play {
+            from {
+                background-position: 0 0;
+            }
+            to {
+                background-position: -300% 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="sprite"></div>
+
+    <script>
+        const sprite = document.getElementById('sprite');
+        let x = window.innerWidth / 2 - 50; // 初期X位置
+        let y = window.innerHeight / 2 - 50; // 初期Y位置
+        const speed = 5; // 移動速度
+
+        document.addEventListener('keydown', (event) => {
+            switch (event.key) {
+                case 'w': // 上
+                    y -= speed;
+                    break;
+                case 'a': // 左
+                    x -= speed;
+                    break;
+                case 's': // 下
+                    y += speed;
+                    break;
+                case 'd': // 右
+                    x += speed;
+                    break;
+            }
+            // スプライトの位置を更新
+            sprite.style.transform = `translate(${x}px, ${y}px)`;
+        });
+    </script>
+</body>
+</html>
